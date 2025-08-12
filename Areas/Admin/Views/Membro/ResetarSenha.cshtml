@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Resetar Senha do Membro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Resetar Senha</h2>
+
+<form asp-action="ResetarSenha" method="post">
+    <input type="hidden" name="id" value="@ViewBag.MembroId" />
+
+    <div class="form-group">
+        <label>Nova Senha</label>
+        <input type="password" name="novaSenha" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-danger">Redefinir Senha</button>
+</form>

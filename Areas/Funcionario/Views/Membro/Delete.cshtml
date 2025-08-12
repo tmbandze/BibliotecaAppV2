@@ -1,0 +1,22 @@
+﻿@model BibliotecaAppV2.Models.Membro
+
+@{
+    ViewData["Title"] = "Excluir Membro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Excluir Membro</h2>
+<p>Tem certeza que deseja excluir este membro?</p>
+<dl class="row">
+    <dt class="col-sm-3">Nome Completo</dt>
+    <dd class="col-sm-9">@Model.Nome</dd>
+
+    <dt class="col-sm-3">Email</dt>
+    <dd class="col-sm-9">@Model.Email</dd>
+</dl>
+<form asp-area="Funcionario" asp-controller="Membro" asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a asp-area="Funcionario" asp-controller="Membro" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

@@ -1,0 +1,29 @@
+﻿@model BibliotecaAppV2.Models.Reserva
+@{
+    ViewData["Title"] = "Detalhes da Reserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Reserva</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Livro</dt>
+        <dd class="col-sm-9">@Model.Livro?.Titulo</dd>
+
+        <dt class="col-sm-3">Membro</dt>
+        <dd class="col-sm-9">@Model.Membro?.Nome</dd>
+
+        <dt class="col-sm-3">Data da Reserva</dt>
+        <dd class="col-sm-9">@Model.DataReserva.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-3">Data Limite Retirada</dt>
+        <dd class="col-sm-9">@Model.DataLimiteRetirada?.ToString("dd/MM/yyyy")</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+</div>

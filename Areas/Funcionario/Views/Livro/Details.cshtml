@@ -1,0 +1,39 @@
+﻿@model BibliotecaAppV2.Models.Livro
+
+@{
+    ViewData["Title"] = "Detalhes do Livro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes do Livro</h2>
+<dl class="row">
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Titulo)</dt>
+    <dd class="col-sm-9">@Model.Titulo</dd>
+
+    <dt class="col-sm-3">Autor(es)</dt>
+    <dd class="col-sm-9">
+        @(Model.LivroAutores != null && Model.LivroAutores.Any()
+                ? string.Join(", ", Model.LivroAutores.Select(la => la.Autor?.Nome))
+                : "Sem autor")
+    </dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Editora)</dt>
+    <dd class="col-sm-9">@Model.Editora?.Nome</dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.AnoPublicacao)</dt>
+    <dd class="col-sm-9">@Model.AnoPublicacao</dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.ISBN)</dt>
+    <dd class="col-sm-9">@Model.ISBN</dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Quantidade)</dt>
+    <dd class="col-sm-9">@Model.Quantidade</dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Ativo)</dt>
+    <dd class="col-sm-9">@(Model.Ativo ? "Sim" : "Não")</dd>
+
+    <dt class="col-sm-3">Disponível</dt>
+    <dd class="col-sm-9">@(Model.Quantidade > 0 ? "Sim" : "Não")</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
+<a asp-action="Index" class="btn btn-secondary">Voltar à lista</a>

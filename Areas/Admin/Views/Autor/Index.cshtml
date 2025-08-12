@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BibliotecaAppV2.Models.Autor>
+@{
+    ViewData["Title"] = "Lista de Autores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Novo Autor</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Data de Nascimento</th>
+            <th>Nacionalidade</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var autor in Model)
+            {
+                <tr>
+                    <td>@autor.Nome</td>
+                    <td>@(autor.DataNascimento?.ToString("dd/MM/yyyy"))</td>
+                    <td>@autor.Nacionalidade</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@autor.Id" class="btn btn-sm btn-warning">Editar</a>
+                        <a asp-action="Details" asp-route-id="@autor.Id" class="btn btn-sm btn-info">Detalhes</a>
+                        <a asp-action="Delete" asp-route-id="@autor.Id" class="btn btn-sm btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center text-muted">Nenhum autor cadastrado.</td>
+            </tr>
+        }
+    </tbody>
+</table>

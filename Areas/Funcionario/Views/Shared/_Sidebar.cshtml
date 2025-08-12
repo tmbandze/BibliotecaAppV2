@@ -1,0 +1,51 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<nav>
+    <ul class="nav nav-pills nav-sidebar flex-column mt-2" role="menu">
+        <li class="nav-item">
+            <a asp-area="Funcionario" asp-controller="Dashboard" asp-action="Index" class="nav-link">
+                <i class="fas fa-chart-pie"></i>
+                <p>Dashboard</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="Funcionario" asp-controller="Emprestimo" asp-action="Create" class="nav-link">
+                <i class="fas fa-handshake"></i>
+                <p>Registrar Empréstimo</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="Funcionario" asp-controller="Emprestimo" asp-action="Index" class="nav-link">
+                <i class="fas fa-undo"></i>
+                <p>Devoluções</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="Funcionario" asp-controller="Membro" asp-action="Index" class="nav-link">
+                <i class="fas fa-users"></i>
+                <p>Membros Atendidos</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="Funcionario" asp-controller="Livro" asp-action="Index" class="nav-link">
+                <i class="fas fa-book"></i>
+                <p>Livros</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="Funcionario" asp-controller="Perfil" asp-action="Index" class="nav-link">
+                <i class="fas fa-user"></i>
+                <p>Meu Perfil</p>
+            </a>
+        </li>
+        <li class="nav-item mt-3">
+            <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="form-inline" style="display:inline;">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="nav-link" style="background: none; border: none; color: inherit; width: 100%; text-align: left;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <p style="display:inline;">Logout</p>
+                </button>
+            </form>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,37 @@
+﻿@model BibliotecaAppV2.Models.Emprestimo
+@{
+    ViewData["Title"] = "Novo Empréstimo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var livros = ViewBag.Livros as List<BibliotecaAppV2.Models.Livro>;
+    var membros = ViewBag.Membros as List<BibliotecaAppV2.Models.Membro>;
+}
+<h2>Novo Empréstimo</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="LivroId"></label>
+        <select asp-for="LivroId" class="form-control" asp-items="@(new SelectList(livros, "Id", "Titulo"))">
+            <option value="">Selecione um livro</option>
+        </select>
+        <span asp-validation-for="LivroId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MembroId"></label>
+        <select asp-for="MembroId" class="form-control" asp-items="@(new SelectList(membros, "Id", "Nome"))">
+            <option value="">Selecione um membro</option>
+        </select>
+        <span asp-validation-for="MembroId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataEmprestimo"></label>
+        <input asp-for="DataEmprestimo" class="form-control" type="date" />
+        <span asp-validation-for="DataEmprestimo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataDevolucaoPrevista"></label>
+        <input asp-for="DataDevolucaoPrevista" class="form-control" type="date" />
+        <span asp-validation-for="DataDevolucaoPrevista" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+</form>

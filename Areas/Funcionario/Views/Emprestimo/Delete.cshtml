@@ -1,0 +1,22 @@
+﻿@model BibliotecaAppV2.Models.Emprestimo
+
+@{
+    ViewData["Title"] = "Excluir Empréstimo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Excluir Empréstimo</h2>
+<p>Tem certeza que deseja excluir este registro?</p>
+<dl class="row">
+    <dt class="col-sm-2">Livro</dt>
+    <dd class="col-sm-10">@Model.Livro?.Titulo</dd>
+
+    <dt class="col-sm-2">Membro</dt>
+    <dd class="col-sm-10">@Model.Membro?.Nome</dd>
+</dl>
+<form asp-area="Funcionario" asp-controller="Emprestimo" asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a asp-area="Funcionario" asp-controller="Emprestimo" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

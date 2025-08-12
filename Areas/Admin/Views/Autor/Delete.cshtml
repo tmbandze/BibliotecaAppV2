@@ -1,0 +1,28 @@
+﻿@model BibliotecaAppV2.Models.Autor
+@{
+    ViewData["Title"] = "Excluir Autor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Tem certeza que deseja excluir este autor?</h3>
+<div>
+    <h4>Autor</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Nome</dt>
+        <dd class="col-sm-9">@Model.Nome</dd>
+
+        <dt class="col-sm-3">Data de Nascimento</dt>
+        <dd class="col-sm-9">@Model.DataNascimento?.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-3">Nacionalidade</dt>
+        <dd class="col-sm-9">@Model.Nacionalidade</dd>
+    </dl>
+</div>
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

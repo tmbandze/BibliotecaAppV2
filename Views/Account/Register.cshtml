@@ -1,0 +1,90 @@
+﻿@model BibliotecaAppV2.Models.ViewModels.RegisterViewModel
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewData["Title"] = "Registrar";
+}
+
+<div class="register-box">
+    <div class="register-logo">
+        <i class="fas fa-user-plus fa-3x" style="color:#0ad1c8"></i>
+        <br />
+        <b>Biblioteca</b>App
+    </div>
+    <div class="card">
+        <div class="card-body register-card-body">
+            <p class="login-box-msg">Crie sua conta</p>
+            <form asp-action="Register" method="post" enctype="multipart/form-data">
+                <div class="input-group mb-3">
+                    <input asp-for="NomeCompleto" class="form-control" placeholder="Nome Completo" />
+                    <div class="input-group-append">
+                        <div class="input-group-text"><span class="fas fa-user"></span></div>
+                    </div>
+                </div>
+                <span asp-validation-for="NomeCompleto" class="text-danger"></span>
+
+                <div class="input-group mb-3">
+                    <input asp-for="Email" class="form-control" placeholder="E-mail" />
+                    <div class="input-group-append">
+                        <div class="input-group-text"><span class="fas fa-envelope"></span></div>
+                    </div>
+                </div>
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+                <div class="input-group mb-3">
+                    <input asp-for="Password" class="form-control" placeholder="Senha" type="password" />
+                    <div class="input-group-append">
+                        <div class="input-group-text"><span class="fas fa-lock"></span></div>
+                    </div>
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+                <div class="input-group mb-3">
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirmar Senha" type="password" />
+                    <div class="input-group-append">
+                        <div class="input-group-text"><span class="fas fa-lock"></span></div>
+                    </div>
+                </div>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                <div class="input-group mb-3">
+                    <select asp-for="Role" class="form-control">
+                        <option value="">Selecione o tipo de usuário</option>
+                        <option value="Membro">Membro</option>
+                    </select>
+                    <div class="input-group-append">
+                        <div class="input-group-text"><span class="fas fa-user-tag"></span></div>
+                    </div>
+                </div>
+                <span asp-validation-for="Role" class="text-danger"></span>
+
+                <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input asp-for="FotoPerfil" type="file" class="custom-file-input" />
+                        <label class="custom-file-label">Foto de Perfil</label>
+                    </div>
+                </div>
+                <span asp-validation-for="FotoPerfil" class="text-danger"></span>
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-8">
+                        <a asp-action="Login">Já tenho conta</a>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-success btn-block">Registrar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $('.custom-file-input').on('change', function () {
+            var fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        });
+    </script>
+}

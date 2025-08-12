@@ -1,0 +1,50 @@
+﻿@model BibliotecaAppV2.Models.Membro
+@{
+    ViewData["Title"] = "Editar Membro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var users = ViewBag.Users as IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>;
+}
+
+<h2>Editar Membro</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<form asp-action="Edit" autocomplete="off">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="UserId"></label> <span class="text-danger">*</span>
+        <select asp-for="UserId" class="form-control" asp-items="@(new SelectList(users, "Id", "UserName", Model?.UserId))">
+            <option value="">Selecione...</option>
+        </select>
+        <span asp-validation-for="UserId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Nome"></label> <span class="text-danger">*</span>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label> <span class="text-danger">*</span>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataNascimento"></label>
+        <input asp-for="DataNascimento" class="form-control" type="date" />
+        <span asp-validation-for="DataNascimento" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Telefone"></label>
+        <input asp-for="Telefone" class="form-control" />
+        <span asp-validation-for="Telefone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Endereco"></label>
+        <input asp-for="Endereco" class="form-control" />
+        <span asp-validation-for="Endereco" class="text-danger"></span>
+    </div>
+    <div class="d-flex justify-content-between">
+        <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+</form>

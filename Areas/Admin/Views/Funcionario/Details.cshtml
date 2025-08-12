@@ -1,0 +1,25 @@
+﻿@model BibliotecaAppV2.Models.Funcionario
+
+@{
+    ViewData["Title"] = "Detalhes do Funcionário";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header bg-info">
+        <h3 class="card-title mb-0"><i class="fas fa-info-circle"></i> Detalhes do Funcionário</h3>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Nome)</dt>
+            <dd class="col-sm-9">@Model.Nome</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Email)</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Telefone)</dt>
+            <dd class="col-sm-9">@Model.Telefone</dd>
+            <dt class="col-sm-3">Data de Cadastro</dt>
+            <dd class="col-sm-9">@Model.DataCadastro.ToString("dd/MM/yyyy")</dd>
+        </dl>
+        <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
+    </div>
+</div>

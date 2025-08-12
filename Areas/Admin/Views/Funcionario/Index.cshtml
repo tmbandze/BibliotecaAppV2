@@ -1,0 +1,66 @@
+﻿@model IEnumerable<BibliotecaAppV2.Models.Funcionario>
+
+@{
+    ViewData["Title"] = "Funcionários";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="card-title mb-0">Funcionários</h3>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="fas fa-plus"></i> Novo Funcionário
+        </a>
+    </div>
+    <div class="card-body">
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Telefone</th>
+                            <th>Data Cadastro</th>
+                            <th style="width:160px;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Nome</td>
+                                <td>@item.Email</td>
+                                <td>@item.Telefone</td>
+                                <td>@item.DataCadastro.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm" title="Detalhes">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                    <a asp-action="ResetarSenha" asp-route-id="@item.Id" class="btn btn-sm btn-warning" title="Resetar Senha"
+                                       onclick="return confirm('Tem certeza que deseja redefinir a senha deste funcionário?');">
+                                        <i class="fas fa-key"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" title="Excluir"
+                                       onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info mb-0">Nenhum funcionário cadastrado ainda.</div>
+        }
+    </div>
+</div>

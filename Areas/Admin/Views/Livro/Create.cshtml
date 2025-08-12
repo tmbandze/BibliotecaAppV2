@@ -1,0 +1,59 @@
+﻿@model BibliotecaAppV2.Models.LivroEditViewModel
+@{
+    ViewData["Title"] = "Novo Livro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Novo Livro</h2>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Titulo"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+    <!-- Seleção múltipla de autores -->
+    <div class="form-group">
+        <label asp-for="AutoresIds"></label>
+        <select asp-for="AutoresIds" class="form-control" multiple="multiple">
+            @foreach (var autor in Model.AutoresDisponiveis)
+            {
+                <option value="@autor.Id">@autor.Nome</option>
+            }
+        </select>
+        <span asp-validation-for="AutoresIds" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EditoraId"></label>
+        <select asp-for="EditoraId" class="form-control" asp-items="ViewBag.Editoras">
+            <option value="">Selecione uma editora</option>
+        </select>
+        <span asp-validation-for="EditoraId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AnoPublicacao"></label>
+        <input asp-for="AnoPublicacao" class="form-control" type="number" />
+        <span asp-validation-for="AnoPublicacao" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ISBN"></label>
+        <input asp-for="ISBN" class="form-control" />
+        <span asp-validation-for="ISBN" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantidade"></label>
+        <input asp-for="Quantidade" class="form-control" type="number" />
+        <span asp-validation-for="Quantidade" class="text-danger"></span>
+    </div>
+    <!-- Dropdown de categorias -->
+    <div class="form-group">
+        <label asp-for="CategoriaId"></label>
+        <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.Categorias">
+            <option value="">Selecione uma categoria</option>
+        </select>
+        <span asp-validation-for="CategoriaId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+</form>

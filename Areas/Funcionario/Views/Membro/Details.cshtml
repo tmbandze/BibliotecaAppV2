@@ -1,0 +1,32 @@
+﻿@model BibliotecaAppV2.Models.Membro
+
+@{
+    ViewData["Title"] = "Detalhes do Membro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes do Membro</h2>
+<dl class="row">
+    <dt class="col-sm-3">Nome Completo</dt>
+    <dd class="col-sm-9">@Model.Nome</dd>
+
+    <dt class="col-sm-3">Email</dt>
+    <dd class="col-sm-9">@Model.Email</dd>
+
+    <dt class="col-sm-3">Data de Nascimento</dt>
+    <dd class="col-sm-9">@Model.DataNascimento?.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">Telefone</dt>
+    <dd class="col-sm-9">@Model.Telefone</dd>
+
+    <dt class="col-sm-3">Endereço</dt>
+    <dd class="col-sm-9">@Model.Endereco</dd>
+
+    <dt class="col-sm-3">Data de Cadastro</dt>
+    <dd class="col-sm-9">@Model.DataCadastro.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">Status</dt>
+    <dd class="col-sm-9">@((Model.Ativo) ? "Ativo" : "Inativo")</dd>
+</dl>
+<a asp-area="Funcionario" asp-controller="Membro" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
+<a asp-area="Funcionario" asp-controller="Membro" asp-action="Index" class="btn btn-secondary">Voltar</a>

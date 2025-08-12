@@ -1,0 +1,23 @@
+﻿@model BibliotecaAppV2.Models.Emprestimo
+@{
+    ViewData["Title"] = "Detalhes do Empréstimo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes do Empréstimo</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Livro</dt>
+        <dd class="col-sm-10">@Model.Livro?.Titulo</dd>
+        <dt class="col-sm-2">Membro</dt>
+        <dd class="col-sm-10">@Model.Membro?.Nome</dd>
+        <dt class="col-sm-2">Data de Empréstimo</dt>
+        <dd class="col-sm-10">@Model.DataEmprestimo.ToString("dd/MM/yyyy")</dd>
+        <dt class="col-sm-2">Devolução Prevista</dt>
+        <dd class="col-sm-10">@Model.DataDevolucaoPrevista?.ToString("dd/MM/yyyy")</dd>
+        <dt class="col-sm-2">Devolução Real</dt>
+        <dd class="col-sm-10">@Model.DataDevolucaoReal?.ToString("dd/MM/yyyy")</dd>
+    </dl>
+    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+</div>

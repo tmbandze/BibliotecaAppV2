@@ -1,0 +1,31 @@
+﻿@model IEnumerable<BibliotecaAppV2.Models.Emprestimo>
+
+@{
+    ViewData["Title"] = "Empréstimos Pendentes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Empréstimos Pendentes de Devolução</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Livro</th>
+            <th>Membro</th>
+            <th>Data do Empréstimo</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Where(e => e.DataDevolucaoReal == null))
+        {
+            <tr>
+                <td>@item.Livro?.Titulo</td>
+                <td>@item.Membro?.Nome</td>
+                <td>@item.DataEmprestimo.ToShortDateString()</td>
+                <td>
+                    <a asp-area="Funcionario" asp-controller="Emprestimo" asp-action="Devolver" asp-route-id="@item.Id" class="btn btn-sm btn-success">Devolver</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

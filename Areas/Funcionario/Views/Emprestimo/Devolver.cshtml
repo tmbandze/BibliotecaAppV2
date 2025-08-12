@@ -1,0 +1,19 @@
+﻿@model BibliotecaAppV2.Models.Emprestimo
+
+@{
+    ViewData["Title"] = "Confirmar Devolução";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Confirmar Devolução</h2>
+<div>
+    <h4>Livro: @Model.Livro?.Titulo</h4>
+    <p>Membro: @Model.Membro?.Nome</p>
+    <p>Data do Empréstimo: @Model.DataEmprestimo.ToShortDateString()</p>
+</div>
+<form asp-area="Funcionario" asp-controller="Emprestimo" asp-action="Devolver" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-primary">Confirmar Devolução</button>
+    <a asp-area="Funcionario" asp-controller="Emprestimo" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

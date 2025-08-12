@@ -1,0 +1,39 @@
+﻿@model BibliotecaAppV2.Models.Reserva
+@{
+    ViewData["Title"] = "Nova Reserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var livros = ViewBag.Livros as List<BibliotecaAppV2.Models.Livro>;
+    var membros = ViewBag.Membros as List<BibliotecaAppV2.Models.Membro>;
+}
+
+<h2>@ViewData["Title"]</h2>
+@Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="LivroId"></label>
+        <select asp-for="LivroId" class="form-control" asp-items="@(new SelectList(livros, "Id", "Titulo"))">
+            <option value="">Selecione o livro</option>
+        </select>
+        <span asp-validation-for="LivroId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MembroId"></label>
+        <select asp-for="MembroId" class="form-control" asp-items="@(new SelectList(membros, "Id", "Nome"))">
+            <option value="">Selecione o membro</option>
+        </select>
+        <span asp-validation-for="MembroId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataReserva"></label>
+        <input asp-for="DataReserva" class="form-control" type="date" />
+        <span asp-validation-for="DataReserva" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataLimiteRetirada"></label>
+        <input asp-for="DataLimiteRetirada" class="form-control" type="date" />
+        <span asp-validation-for="DataLimiteRetirada" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+</form>

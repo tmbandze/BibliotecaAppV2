@@ -1,0 +1,93 @@
+﻿@model BibliotecaAppV2.Areas.Admin.ViewModels.RelatorioEmprestimoViewModel
+
+@{
+    ViewData["Title"] = "Relatório de Empréstimos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">📊 Relatório de Empréstimos - @Model.TipoRelatorio.ToUpper()</h2>
+<h2>Relatório de Empréstimos - @Model.TipoRelatorio.ToUpper()</h2>
+<small class="text-muted">
+    Período: @Model.DataInicio.ToString("dd/MM/yyyy") até @Model.DataFim.ToString("dd/MM/yyyy")
+</small>
+
+<!-- Filtros de período -->
+<form method="get" asp-action="Relatorio" class="mb-4">
+    <div class="btn-group" role="group">
+        <input type="radio" class="btn-check" name="tipoRelatorio" value="diario" id="radioDiario"
+               @(Model.TipoRelatorio == "diario" ? "checked" : "") />
+        <label class="btn btn-outline-primary" for="radioDiario">Diário</label>
+
+        <input type="radio" class="btn-check" name="tipoRelatorio" value="semanal" id="radioSemanal"
+               @(Model.TipoRelatorio == "semanal" ? "checked" : "") />
+        <label class="btn btn-outline-primary" for="radioSemanal">Semanal</label>
+
+        <input type="radio" class="btn-check" name="tipoRelatorio" value="mensal" id="radioMensal"
+               @(Model.TipoRelatorio == "mensal" ? "checked" : "") />
+        <label class="btn btn-outline-primary" for="radioMensal">Mensal</label>
+
+        <button type="submit" class="btn btn-success ms-3">Gerar</button>
+    </div>
+</form>
+
+<!-- Painéis resumo -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white text-center">
+            <div class="card-body">
+                <h6>Total de Empréstimos</h6>
+                <h3>@Model.TotalEmprestimos</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white text-center">
+            <div class="card-body">
+                <h6>Devoluções</h6>
+                <h3>@Model.TotalDevolvidos</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark text-center">
+            <div class="card-body">
+                <h6>Empréstimos Pendentes</h6>
+                <h3>@Model.TotalPendentes</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 text-end">
+        <a asp-action="RelatorioPdf" asp-route-tipoRelatorio="@Model.TipoRelatorio" class="btn btn-outline-dark mt-3">
+            <i class="fas fa-file-pdf"></i> Exportar PDF
+        </a>
+    </div>
+</div>
+
+<!-- Livros mais emprestados -->
+<h4 class="mt-4">📚 Top 5 Livros Mais Emprestados</h4>
+@if (Model.LivrosMaisEmprestados.Any())
+{
+    <table class="table table-striped table-bordered mt-2">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Qtd. Empréstimos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.LivrosMaisEmprestados.Count; i++)
+            {
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@Model.LivrosMaisEmprestados[i].Titulo</td>
+                    <td>@Model.LivrosMaisEmprestados[i].Quantidade</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">Nenhum dado disponível para o período selecionado.</div>
+}

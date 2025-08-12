@@ -1,0 +1,147 @@
+﻿@{
+    ViewData["Title"] = "Dashboard do Membro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userName = User.Identity?.Name ?? "Membro";
+}
+
+<section class="content pt-4">
+    <div class="content-header-custom mb-4">
+        <h2>Painel do Membro</h2>
+        <span><i class="fas fa-user"></i> Bem-vindo, @userName</span>
+    </div>
+
+    <!-- Cards -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card card-livros">
+                <div class="card-body">
+                    <div class="card-title-custom">Livros Disponíveis</div>
+                    <div class="card-value" id="livros-count">250</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-emprestimos">
+                <div class="card-body">
+                    <div class="card-title-custom">Meus Empréstimos</div>
+                    <div class="card-value" id="emprestimos-count">3</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-atrasos">
+                <div class="card-body">
+                    <div class="card-title-custom">Meus Atrasos</div>
+                    <div class="card-value" id="atrasos-count">1</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfico -->
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Resumo dos Meus Empréstimos</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="dashboardChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .brand-link-custom {
+            background: #213A57;
+            color: #fff !important;
+            font-weight: bold;
+        }
+
+        .sidebar-dark-primary {
+            background-color: #213A57 !important;
+        }
+
+        .content-header-custom {
+            background: #213A57;
+            color: #fff;
+            padding: 20px 30px;
+            border-bottom: 1px solid #0AD1C8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-custom-logout {
+            background-color: #0AD1C8;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            padding: 7px 20px;
+        }
+
+        .card-livros {
+            background: #14919B !important;
+            color: #fff;
+        }
+
+        .card-emprestimos {
+            background: #45DFB1 !important;
+            color: #fff;
+        }
+
+        .card-atrasos {
+            background: #80ED99 !important;
+            color: #fff;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .card-title-custom {
+            font-size: 1.1rem;
+        }
+
+        .sidebar .nav-link.active {
+            background: #0AD1C8 !important;
+            color: #213A57 !important;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('dashboardChart').getContext('2d');
+        var dashboardChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Livros Disponíveis', 'Meus Empréstimos', 'Meus Atrasos'],
+                datasets: [{
+                    label: 'Quantidade',
+                    data: [
+                        parseInt(document.getElementById('livros-count').textContent),
+                        parseInt(document.getElementById('emprestimos-count').textContent),
+                        parseInt(document.getElementById('atrasos-count').textContent)
+                    ],
+                    backgroundColor: ['#14919B', '#45DFB1', '#80ED99']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+}

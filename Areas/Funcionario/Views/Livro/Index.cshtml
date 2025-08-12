@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BibliotecaAppV2.Models.Livro>
+
+@{
+    ViewData["Title"] = "Acervo de Livros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Acervo de Livros</h2>
+
+<form asp-action="Index" method="get" class="form-inline mb-3">
+    <input type="text" name="busca" class="form-control mr-2" placeholder="Buscar por título, autor, ISBN ou editora..." value="@ViewBag.Filtro" />
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.First().Titulo)</th>
+            <th>Autor(es)</th>
+            <th>Editora</th>
+            <th>@Html.DisplayNameFor(m => m.First().AnoPublicacao)</th>
+            <th>@Html.DisplayNameFor(m => m.First().ISBN)</th>
+            <th>@Html.DisplayNameFor(m => m.First().Quantidade)</th>
+            <th>@Html.DisplayNameFor(m => m.First().Ativo)</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var livro in Model)
+        {
+            <tr>
+                <td>@livro.Titulo</td>
+                <td>
+                    @string.Join(", ", livro.LivroAutores.Select(la => la.Autor != null ? la.Autor.Nome : ""))
+                </td>
+                <td>@livro.Editora?.Nome</td>
+                <td>@livro.AnoPublicacao</td>
+                <td>@livro.ISBN</td>
+                <td>@livro.Quantidade</td>
+                <td>@(livro.Ativo ? "Sim" : "Não")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@livro.Id" class="btn btn-info btn-sm">Detalhes</a>
+                    <a asp-action="Edit" asp-route-id="@livro.Id" class="btn btn-primary btn-sm">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

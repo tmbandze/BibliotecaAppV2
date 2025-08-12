@@ -1,0 +1,94 @@
+﻿@model BibliotecaAppV2.Areas.Admin.ViewModels.EmprestimoFiltroViewModel
+
+
+@{
+    ViewData["Title"] = "Empréstimos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Empréstimos</h2>
+
+<form asp-action="Index" method="get" class="mb-4">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Filtrar por Status:</label>
+            <select asp-for="Status" class="form-control">
+                <option value="">Todos</option>
+                <option value="Em andamento">Em andamento</option>
+                <option value="Devolvido">Devolvido</option>
+                <option value="Atrasado">Atrasado</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Filtrar por Funcionário:</label>
+            <select asp-for="FuncionarioSelecionado" class="form-control"
+                    asp-items="Model.FuncionariosDisponiveis">
+                <option value="">Todos</option>
+            </select>
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <a asp-action="Index" class="btn btn-secondary">Limpar</a>
+        </div>
+        <div class="col-md-2 d-flex align-items-end justify-content-end">
+            <a asp-action="Create" class="btn btn-success">Novo Empréstimo</a>
+        </div>
+    </div>
+</form>
+
+@if (Model.Emprestimos != null && Model.Emprestimos.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Livro</th>
+                <th>Membro</th>
+                <th>Data de Empréstimo</th>
+                <th>Devolução Prevista</th>
+                <th>Devolução Real</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Emprestimos)
+            {
+                <tr>
+                    <td>@item.Livro</td>
+                    <td>@item.Membro</td>
+                    <td>@item.DataEmprestimo.ToString("dd/MM/yyyy")</td>
+                    <td>@item.DataDevolucaoPrevista?.ToString("dd/MM/yyyy")</td>
+                    <td>@item.DataDevolucaoReal?.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        @if (item.Status == "Atrasado")
+                        {
+                            <span class="badge bg-danger">@item.Status</span>
+                        }
+                        else if (item.Status == "Devolvido")
+                        {
+                            <span class="badge bg-success">@item.Status</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">@item.Status</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detalhes</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Excluir</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        Nenhum empréstimo encontrado com os critérios fornecidos.
+    </div>
+}

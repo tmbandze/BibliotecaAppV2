@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - BibliotecaAppV2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="~/lib/admin-lte/css/adminlte.min.css" />
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="~/lib/admin-lte/plugins/fontawesome-free/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" />
+    <!-- Bootstrap (já incluso no AdminLTE, mas pode manter se quiser) -->
+    <link rel="stylesheet" href="~/lib/admin-lte/plugins/bootstrap/css/bootstrap.min.css" />
+    <!-- Seu CSS customizado -->
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            background: linear-gradient(120deg,#213A57 0%,#0AD1C8 120%);
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="hold-transition login-page">
+    @RenderBody()
+
+    <!-- jQuery -->
+    <script src="~/lib/admin-lte/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/lib/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE -->
+    <script src="~/lib/admin-lte/js/adminlte.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

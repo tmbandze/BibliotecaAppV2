@@ -1,0 +1,87 @@
+﻿@model List<BibliotecaAppV2.Models.Livro>
+@{
+    ViewData["Title"] = "Livros Disponíveis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var termoBusca = ViewBag.Filtro as string ?? "";
+}
+
+<div class="content-header-custom mb-4">
+    <h2>Livros Disponíveis</h2>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="get" class="form-inline mb-3">
+            <input type="text" name="busca" class="form-control mr-2" placeholder="Buscar por título, ISBN, autor..." value="@termoBusca" style="width: 300px;" />
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Buscar
+            </button>
+        </form>
+
+        @if (Model.Any())
+        {
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Título</th>
+                        <th>Categoria</th>
+                        <th>Editora</th>
+                        <th>ISBN</th>
+                        <th>Qtd. em Estoque</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var livro in Model)
+                    {
+                        <tr>
+                            <td>@livro.Titulo</td>
+                            <td>@livro.Categoria?.Nome</td>
+                            <td>@livro.Editora?.Nome</td>
+                            <td>@livro.ISBN</td>
+                            <td>@livro.Quantidade</td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@livro.Id" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i> Ver Detalhes
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                Nenhum livro encontrado.
+            </div>
+        }
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .content-header-custom {
+            background: #213A57;
+            color: #fff;
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .table thead {
+            background-color: #14919B;
+            color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #0AD1C8;
+            border-color: #0AD1C8;
+        }
+
+        .btn-info {
+            background-color: #45DFB1;
+            border-color: #45DFB1;
+        }
+    </style>
+}

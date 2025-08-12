@@ -1,0 +1,25 @@
+﻿@model BibliotecaAppV2.Models.Membro
+@{
+    ViewData["Title"] = "Detalhes do Membro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes do Membro</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">Nome</dt>
+        <dd class="col-sm-9">@Model.Nome</dd>
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@Model.Email</dd>
+        <dt class="col-sm-3">Telefone</dt>
+        <dd class="col-sm-9">@Model.Telefone</dd>
+        <dt class="col-sm-3">Data de Nascimento</dt>
+        <dd class="col-sm-9">@Model.DataNascimento?.ToString("dd/MM/yyyy")</dd>
+        <dt class="col-sm-3">Endereço</dt>
+        <dd class="col-sm-9">@Model.Endereco</dd>
+        <dt class="col-sm-3">Data de Cadastro</dt>
+        <dd class="col-sm-9">@Model.DataCadastro.ToString("dd/MM/yyyy")</dd>
+    </dl>
+    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+</div>

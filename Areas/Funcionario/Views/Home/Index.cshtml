@@ -1,0 +1,179 @@
+﻿@model BibliotecaAppV2.Models.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard do Funcionário";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userName = User.Identity?.Name ?? "Funcionário";
+}
+
+<div class="content-header-custom mb-4">
+    <h2>Painel do Funcionário</h2>
+    <span><i class="fas fa-user"></i> Bem-vindo, @userName</span>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card card-emprestimos">
+            <div class="card-body">
+                <div class="card-title-custom">Empréstimos Realizados</div>
+                <div class="card-value" id="emprestimos-count">@Model.TotalEmprestimos</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-devolucoes">
+            <div class="card-body">
+                <div class="card-title-custom">Devoluções Pendentes</div>
+                <div class="card-value" id="devolucoes-count">@Model.DevolucoesPendentes</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-membros">
+            <div class="card-body">
+                <div class="card-title-custom">Membros Atendidos</div>
+                <div class="card-value" id="membros-count">@Model.MembrosAtendidos</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-atrasos">
+            <div class="card-body">
+                <div class="card-title-custom">Atrasos (meus)</div>
+                <div class="card-value" id="atrasos-count">@Model.TotalAtrasos</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Botões de Atalho -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <a asp-area="Funcionario" asp-controller="Emprestimo" asp-action="Create" class="btn btn-primary btn-block mb-3">
+            <i class="fas fa-plus"></i> Registrar Novo Empréstimo
+        </a>
+        <a asp-area="Funcionario" asp-controller="Emprestimo" asp-action="Index" class="btn btn-success btn-block mb-3">
+            <i class="fas fa-book"></i> Empréstimos Pendentes
+        </a>
+        <a asp-area="Funcionario" asp-controller="Emprestimo" asp-action="Historico" class="btn btn-info btn-block mb-3">
+            <i class="fas fa-history"></i> Histórico de Empréstimos
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Resumo do Mês</h3>
+            </div>
+            <div class="card-body">
+                <canvas id="dashboardChart" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .brand-link-custom {
+            background: #213A57;
+            color: #fff !important;
+            font-weight: bold;
+        }
+
+        .sidebar-dark-primary {
+            background-color: #213A57 !important;
+        }
+
+        .content-header-custom {
+            background: #213A57;
+            color: #fff;
+            padding: 20px 30px;
+            border-bottom: 1px solid #0AD1C8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-custom-logout {
+            background-color: #0AD1C8;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            padding: 7px 20px;
+        }
+
+        .card-emprestimos {
+            background: #14919B !important;
+            color: #fff;
+        }
+
+        .card-devolucoes {
+            background: #0B6477 !important;
+            color: #fff;
+        }
+
+        .card-membros {
+            background: #45DFB1 !important;
+            color: #fff;
+        }
+
+        .card-atrasos {
+            background: #80ED99 !important;
+            color: #fff;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .card-title-custom {
+            font-size: 1.1rem;
+        }
+
+        .sidebar .nav-link.active {
+            background: #0AD1C8 !important;
+            color: #213A57 !important;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Chart.js - same data as in the cards
+        var ctx = document.getElementById('dashboardChart').getContext('2d');
+        var dashboardChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Empréstimos', 'Devoluções', 'Membros', 'Atrasos'],
+            datasets: [{
+              label: 'Quantidade',
+              data: [
+                parseInt(document.getElementById('emprestimos-count').textContent),
+                parseInt(document.getElementById('devolucoes-count').textContent),
+                parseInt(document.getElementById('membros-count').textContent),
+                parseInt(document.getElementById('atrasos-count').textContent)
+              ],
+              backgroundColor: [
+                '#14919B',
+                '#0B6477',
+                '#45DFB1',
+                '#80ED99'
+              ]
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false }
+            },
+            scales: {
+              y: { beginAtZero: true }
+            }
+          }
+        });
+    </script>
+}

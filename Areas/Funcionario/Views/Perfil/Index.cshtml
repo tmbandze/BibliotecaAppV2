@@ -1,0 +1,15 @@
+﻿@model BibliotecaAppV2.Models.Funcionario
+
+@{
+    ViewData["Title"] = "Meu Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Meu Perfil</h2>
+<dl class="row">
+    <dt class="col-sm-2">Nome</dt>
+    <dd class="col-sm-10">@Model.Nome</dd>
+    <dt class="col-sm-2">Email</dt>
+    <dd class="col-sm-10">@Model.Email</dd>
+    <!-- Adicione outros campos conforme sua model -->
+</dl>

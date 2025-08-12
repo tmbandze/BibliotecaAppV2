@@ -1,0 +1,35 @@
+﻿@model IEnumerable<BibliotecaAppV2.Models.Membro>
+
+@{
+    ViewData["Title"] = "Membros Atendidos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Membros Atendidos</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nome</td>
+                <td>@item.Email</td>
+                <td>@item.Telefone</td>
+                <td>@(item.Ativo ? "Ativo" : "Inativo")</td>
+                <td>
+                    <a asp-area="Funcionario" asp-controller="Membro" asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detalhes</a>
+                    <a asp-area="Funcionario" asp-controller="Membro" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Editar</a>
+                    <a asp-area="Funcionario" asp-controller="Membro" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

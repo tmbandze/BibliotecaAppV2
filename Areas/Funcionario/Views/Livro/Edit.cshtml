@@ -1,0 +1,42 @@
+﻿@model BibliotecaAppV2.Models.Livro
+
+@{
+    ViewData["Title"] = "Editar Livro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Editar Estoque do Livro</h2>
+<form asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Titulo"></label>
+        <input asp-for="Titulo" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label>Autor(es)</label>
+        <input class="form-control" value="@(Model.LivroAutores != null && Model.LivroAutores.Any()
+                                                ? string.Join(", ", Model.LivroAutores.Select(la => la.Autor?.Nome))
+                                                : "Sem autor")" readonly />
+    </div>
+    <div class="form-group">
+        <label>Editora</label>
+        <input class="form-control" value="@Model.Editora?.Nome" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="AnoPublicacao"></label>
+        <input asp-for="AnoPublicacao" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="ISBN"></label>
+        <input asp-for="ISBN" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantidade"></label>
+        <input asp-for="Quantidade" class="form-control" />
+        <span asp-validation-for="Quantidade" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

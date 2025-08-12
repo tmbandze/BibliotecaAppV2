@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Dashboard do Administrador";
+    var userName = User.Identity?.Name ?? "Usuário";
+    Layout = "_Layout"; // Usa o layout compartilhado!
+}
+
+@section Styles {
+    <style>
+        .content-header-custom {
+            background: #213A57;
+            color: #fff;
+            padding: 20px 30px;
+            border-bottom: 1px solid #0AD1C8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-total-livros {
+            background: #0B6477 !important;
+            color: #fff;
+        }
+
+        .card-emprestimos {
+            background: #14919B !important;
+            color: #fff;
+        }
+
+        .card-membros {
+            background: #45DFB1 !important;
+            color: #fff;
+        }
+
+        .card-atrasos {
+            background: #80ED99 !important;
+            color: #fff;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .card-title-custom {
+            font-size: 1.1rem;
+        }
+    </style>
+}
+
+<div class="content-header-custom mb-4">
+    <h1>@ViewData["Title"]</h1>
+    <span>
+        <i class="fas fa-user"></i> Bem-vindo, @userName
+    </span>
+</div>
+
+<div class="container-fluid">
+    <!-- Cards (Top) -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card card-total-livros">
+                <div class="card-body">
+                    <div class="card-title-custom">Total de Livros</div>
+                    <div class="card-value" id="livros-count">@ViewBag.TotalLivros</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-emprestimos">
+                <div class="card-body">
+                    <div class="card-title-custom">Empréstimos Ativos</div>
+                    <div class="card-value" id="emprestimos-count">@ViewBag.TotalEmprestimos</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-membros">
+                <div class="card-body">
+                    <div class="card-title-custom">Total de Membros</div>
+                    <div class="card-value" id="membros-count">@ViewBag.TotalMembros</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-atrasos">
+                <div class="card-body">
+                    <div class="card-title-custom">Atrasos</div>
+                    <div class="card-value" id="atrasos-count">@ViewBag.TotalAtrasos</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Chart -->
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Resumo Geral</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="dashboardChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('dashboardChart').getContext('2d');
+        var dashboardChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Livros', 'Membros', 'Empréstimos', 'Atrasos'],
+                datasets: [{
+                    label: 'Quantidade',
+                    data: [
+                        parseInt(document.getElementById('livros-count').textContent),
+                        parseInt(document.getElementById('membros-count').textContent),
+                        parseInt(document.getElementById('emprestimos-count').textContent),
+                        parseInt(document.getElementById('atrasos-count').textContent)
+                    ],
+                    backgroundColor: [
+                        '#0B6477',
+                        '#45DFB1',
+                        '#14919B',
+                        '#80ED99'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+}
