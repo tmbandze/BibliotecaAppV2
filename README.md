@@ -1,0 +1,1 @@
+Uma aplicacao em C# de Biblioteca, usando as linguagens C# javascript css e outros. a base de dados usada foi a MariaDB. a estrutura usada foi de Model View Controllers isto na cadeira de C# na faculdade.
